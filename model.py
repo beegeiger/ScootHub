@@ -22,10 +22,10 @@ db.app = app
 #######################
 
 
-class User(db.Model):
-	"""User Table in SafeWork App"""
+class Device(db.Model):
+	"""Device Table for scoothub"""
 
-	__tablename__ = "users"
+	__tablename__ = "devices"
 
 	user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
 	username = db.Column(db.String(64), nullable=True)
@@ -46,8 +46,8 @@ class User(db.Model):
 			self.user_id, self.username, self.name, self.fname, self.lname, self.email, self.email2, self.created_at, self.timezone, self.phone, self.safe_code, self.danger_code)
 
 
-class User_log(db.Model):
-	"""SafeWalk Contacts"""
+class Event(db.Model):
+	"""Scoothub download events"""
 
 	__tablename__ = "user_log"
 
@@ -71,18 +71,18 @@ class Source(db.Model):
 
 	__tablename__ = "sources"
 
-	contact_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-	user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+	source_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
 	name = db.Column(db.String(96))
-	email = db.Column(db.String(200), nullable=True)
-	phone = db.Column(db.String(48), nullable=True)
-	c_type = db.Column(db.String(48), nullable=True)
-	c_message = db.Column(db.String(1028), nullable=True)
+	login_un = db.Column(db.String(96), nullable=True)
+	login_pass = db.Column(db.String(96), nullable=True)
+	url = db.Column(db.String(96), nullable=True)
+	endpoint = db.Column(db.String(96), nullable=True)
+	notes = db.Column(db.String(1028), nullable=True)
 
 	def __repr__(self):
 		"""Provide helpful representation when printed."""
-		return "<contact_id={} user_id={} name={} email={} phone={} c_type={} c_message={}>".format(
-			self.contact_id, self.user_id, self.name, self.email, self.phone, self.c_type, self.c_message)
+		return "<source_id={} name={} login_un={} login_pass={} url={} endpoint={} notes={}>".format(
+			self.source_id, self.name, self.login_un, self.login_pass, self.url, self.endpoint, self.notes)
 
 
 ################################################################################
