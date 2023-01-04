@@ -39,10 +39,18 @@ class Device(db.Model):
 	phone = db.Column(db.String(28), nullable=True)
 	safe_code = db.Column(db.String(64), nullable=True)
 	danger_code = db.Column(db.String(64), nullable=True)
+	type = db.Column(db.String(200), nullable=True)
+	address = db.Column(db.String(1028), nullable=True)
+	lat = db.Column(db.String(200), nullable=True)
+	lon = db.Column(db.String(200), nullable=True)
+	city = db.Column(db.String(200), nullable=True)
+	state = db.Column(db.String(200), nullable=True)
+	status = db.Column(db.String(200), nullable=True)
+	charge = db.Column(db.String(200), nullable=True)
 
 	def __repr__(self):
 		"""Provide helpful representation when printed."""
-		return "<user_id={} username={} name={} fname={} lname={} email={} email2={} created_at={} timezone={} phone={} safe_code={} danger_code={}>".format(
+		return "<user_id={} username={} name={} fname={} lname={} email={} email2={} created_at={} timezone={} phone={} safe_code={} danger_code={} address={} lat={} lon={} city={} state={} status={} charge={}>".format(
 			self.user_id, self.username, self.name, self.fname, self.lname, self.email, self.email2, self.created_at, self.timezone, self.phone, self.safe_code, self.danger_code)
 
 
@@ -51,18 +59,17 @@ class Event(db.Model):
 
 	__tablename__ = "user_log"
 
-	user_log_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-	user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'))
+	event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+	source_id = db.Column(db.Integer, db.ForeignKey('sources.source_id'))
 	datetime = db.Column(db.DateTime, nullable=True)
 	time = db.Column(db.Time, nullable=True)
-	type = db.Column(db.String(200), nullable=True)
-	l_message = db.Column(db.String(1028), nullable=True)
-	full_note = db.Column(db.String(2056), nullable=True)
+	city = db.Column(db.String(200), nullable=True)
+	state = db.Column(db.String(200), nullable=True)
 
 	def __repr__(self):
 		"""Provide helpful representation when printed."""
-		return "<user_log_id={} user_id={} datetime={} time={} type={} l_message={} full_note={}>".format(
-			self.user_log_id, self.user_id, self.datetime, self.time, self.type, self.l_message, self.full_note)
+		return "<event_id={} source_id={} datetime={} time={} city={} state={}>".format(
+			self.event_id, self.source_id, self.datetime, self.time, self.city, self.state)
 
 
 
